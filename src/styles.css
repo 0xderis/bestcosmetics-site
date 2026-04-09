@@ -91,43 +91,24 @@ a {
 }
 
 .cursor-light__core {
-  width: 180px;
-  height: 180px;
-  border-radius: 0;
-  transform: translate(-50%, -50%) rotate(8deg);
-  clip-path: polygon(
-    50% 0%,
-    57% 34%,
-    83% 17%,
-    66% 43%,
-    100% 50%,
-    66% 57%,
-    83% 83%,
-    57% 66%,
-    50% 100%,
-    43% 66%,
-    17% 83%,
-    34% 57%,
-    0% 50%,
-    34% 43%,
-    17% 17%,
-    43% 34%
-  );
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 0.07) 0%,
-    rgba(243, 245, 248, 0.032) 36%,
+    rgba(255, 255, 255, 0.125) 0%,
+    rgba(243, 245, 248, 0.068) 34%,
     rgba(255, 255, 255, 0) 72%
   );
-  filter: blur(7px);
+  filter: blur(5px);
 }
 
 .cursor-light__halo {
-  width: 280px;
-  height: 280px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.028) 0%, rgba(255, 255, 255, 0) 78%);
-  filter: blur(12px);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 76%);
+  filter: blur(10px);
 }
 
 .container {
