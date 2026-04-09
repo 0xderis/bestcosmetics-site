@@ -366,11 +366,11 @@ function initCursorLight(): void {
   const onPointerMove = (event: PointerEvent): void => {
     target.x = event.clientX;
     target.y = event.clientY;
-    target.opacity = 1;
+    target.opacity = 0.7;
   };
 
   const onPointerEnter = (): void => {
-    target.opacity = 1;
+    target.opacity = 0.7;
   };
 
   const onPointerLeave = (): void => {

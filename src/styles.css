@@ -87,27 +87,47 @@ a {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 50%;
   pointer-events: none;
 }
 
 .cursor-light__core {
-  width: 260px;
-  height: 260px;
+  width: 180px;
+  height: 180px;
+  border-radius: 0;
+  transform: translate(-50%, -50%) rotate(8deg);
+  clip-path: polygon(
+    50% 0%,
+    57% 34%,
+    83% 17%,
+    66% 43%,
+    100% 50%,
+    66% 57%,
+    83% 83%,
+    57% 66%,
+    50% 100%,
+    43% 66%,
+    17% 83%,
+    34% 57%,
+    0% 50%,
+    34% 43%,
+    17% 17%,
+    43% 34%
+  );
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 0.125) 0%,
-    rgba(243, 245, 248, 0.068) 34%,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(243, 245, 248, 0.032) 36%,
     rgba(255, 255, 255, 0) 72%
   );
-  filter: blur(5px);
+  filter: blur(7px);
 }
 
 .cursor-light__halo {
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 76%);
-  filter: blur(11px);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.028) 0%, rgba(255, 255, 255, 0) 78%);
+  filter: blur(12px);
 }
 
 .container {
