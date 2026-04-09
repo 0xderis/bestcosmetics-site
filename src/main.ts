@@ -17,35 +17,35 @@ const CONTACTS = {
 const services = [
   {
     title: 'Разлив продукции',
-    text: 'Фасуем косметические составы в нужный формат с контролем стабильности выпуска и производственной дисциплины.'
+    text: 'Стабильный выпуск партий в согласованном формате и объеме с производственной дисциплиной на каждом этапе.'
   },
   {
     title: 'Стикеровка',
-    text: 'Ручная и автоматическая стикеровка под требования партии, SKU и конкретных каналов продаж.'
+    text: 'Ручная и автоматическая стикеровка под требования SKU, каналов продаж и логистики.'
   },
   {
     title: 'Упаковка',
-    text: 'Собираем финальную единицу продукции, наборы и коробочные решения в едином производственном потоке.'
+    text: 'Финальная сборка продукции, коробочных решений и наборов в едином технологическом контуре.'
   },
   {
     title: 'Термоусадка',
-    text: 'Обеспечиваем аккуратную фиксацию упаковки, защиту продукта и готовность к транспортировке.'
+    text: 'Аккуратная фиксация упаковки для защиты продукции и готовности к транспортировке.'
   },
   {
     title: 'Маркировка "Честный знак"',
-    text: 'Интегрируем маркировку в производственный цикл, чтобы отгрузка шла без операционных задержек.'
+    text: 'Встраиваем маркировку в производственный цикл, чтобы партия выходила без операционных задержек.'
   },
   {
-    title: 'Хранение готовой продукции',
-    text: 'Организуем хранение партий до момента отгрузки согласно согласованному графику поставок.'
+    title: 'Хранение',
+    text: 'Хранение готовой продукции до отгрузки по согласованному графику и параметрам поставок.'
   },
   {
-    title: 'Логистика по согласованию',
-    text: 'Подстраиваем схему отгрузки под задачи заказчика: распределение, график и приоритеты поставок по РФ.'
+    title: 'Логистика',
+    text: 'Отгрузка по РФ по согласованной схеме, включая распределение партий и календарь поставок.'
   },
   {
     title: 'Подбор и заказ тары',
-    text: 'Подбираем флаконы, банки, тубы и упаковку, включая согласование и поставки из Китая.'
+    text: 'Подбор флаконов, банок, туб и упаковки, включая согласование поставок из Китая.'
   }
 ];
 
@@ -53,86 +53,79 @@ const formats = ['Флаконы', 'Банки', 'Тубы', 'Стики'];
 const categories = ['Тушь', 'Блески', 'Помады', 'Декоративная косметика', 'Шампуни', 'Гели'];
 
 const advantages = [
-  'Высокая скорость запуска и вывода партии в производство.',
-  'Операционная готовность к крупным объемам и регулярным поставкам.',
-  'Конкурентная стоимость без потери производственного качества.',
-  'Практический опыт работы с крупными действующими заказчиками.',
-  'Полный цикл: от согласования тары до отгрузки готовой партии.',
-  'Организация закупки и поставки упаковки под требования проекта.',
-  'Стабильные процессы, выстроенные под серийный выпуск.',
-  'Надежный подрядчик для долгосрочного масштабирования бренда.'
+  'Быстрый запуск производства и вывода партии.',
+  'Готовность к крупным объемам и регулярным поставкам.',
+  'Конкурентная стоимость при стабильном исполнении.',
+  'Опыт работы с крупными действующими заказчиками.',
+  'Полный цикл работ от задачи до отгрузки.',
+  'Согласование и поставка тары и упаковки под проект.',
+  'Выстроенные процессы серийного производства.',
+  'Надежная база для долгосрочного масштабирования.'
 ];
 
 const steps = [
-  'Заявка и предметное обсуждение задачи: объем, сроки, требования к выпуску.',
-  'Согласование формата продукта, упаковки и производственного маршрута.',
-  'При необходимости подбор и заказ тары, включая координацию поставок.',
-  'Производство, разлив, стикеровка и упаковка в едином цикле.',
-  'Маркировка "Честный знак" и финальная подготовка партии к отгрузке.',
-  'Хранение, комплектование и отгрузка по согласованной логистической схеме.'
+  'Заявка и обсуждение задачи: объем, сроки, требования к выпуску.',
+  'Согласование формата продукции и упаковки.',
+  'Подбор или заказ тары при необходимости.',
+  'Производство, разлив, стикеровка и упаковка.',
+  'Маркировка "Честный знак".',
+  'Хранение и отгрузка по согласованной схеме.'
 ];
 
 app.innerHTML = `
-  <div class="page-glow"></div>
-  <div class="cursor-light" aria-hidden="true">
-    <span class="cursor-light__core"></span>
-    <span class="cursor-light__halo"></span>
+  <div class="bg-layer" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true">
+    <span class="cursor-glow__core"></span>
+    <span class="cursor-glow__halo"></span>
   </div>
-  <header class="topbar">
-    <div class="container topbar__inner">
-      <a class="brand" href="#top" aria-label="BestCosmetics">
-        <span class="brand__mark">BC</span>
-        <span class="brand__text">
-          <strong>BestCosmetics</strong>
-          <small>Контрактное производство косметики</small>
-        </span>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a class="logo" href="#top" aria-label="best. cosmetics">
+        <span class="logo__line">best.</span>
+        <span class="logo__line">cosmetics</span>
       </a>
-      <nav class="topbar__nav" aria-label="Навигация по сайту">
+
+      <nav class="nav" aria-label="Навигация по сайту">
         <a href="#about">О компании</a>
         <a href="#services">Услуги</a>
         <a href="#capacity">Мощности</a>
         <a href="#process">Процесс</a>
         <a href="#contacts">Контакты</a>
       </nav>
-      <a class="btn btn--ghost btn--compact" href="${CONTACTS.telegramHref}" target="_blank" rel="noopener noreferrer">Telegram</a>
+
+      <a class="btn btn--ghost btn--compact" href="${CONTACTS.telegramHref}" target="_blank" rel="noopener noreferrer">
+        Telegram
+      </a>
     </div>
   </header>
 
   <main id="top">
-    <section class="hero section">
+    <section class="section hero">
       <div class="container hero__grid">
-        <div class="hero__content reveal">
-          <p class="eyebrow">Сергиев Посад, Московская область • Работаем по всей РФ</p>
-          <h1>Контрактное производство косметики в России для крупных партий</h1>
-          <p class="hero__lead">
-            BestCosmetics обеспечивает выпуск декоративной и уходовой косметики под ключ:
-            разлив, упаковка, термоусадка, маркировка "Честный знак" и отгрузка в согласованные сроки.
+        <div class="reveal">
+          <p class="eyebrow">Московская область, Сергиев Посад • Работаем по всей России</p>
+          <h1>Контрактное производство косметики под ключ в России</h1>
+          <p class="lead">
+            Разлив, упаковка, маркировка и сопровождение выпуска крупных партий для брендов по всей РФ.
           </p>
           <div class="hero__actions">
-            <a class="btn btn--primary" href="${CONTACTS.telegramHref}" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+            <a class="btn btn--primary" href="${CONTACTS.telegramHref}" target="_blank" rel="noopener noreferrer">
+              Написать в Telegram
+            </a>
             <a class="btn btn--secondary" href="${CONTACTS.phoneHref}">Позвонить</a>
           </div>
-          <ul class="hero__highlights">
+          <ul class="facts">
             <li>До 3 000 000 единиц в месяц</li>
-            <li>Контрактное производство под ключ</li>
+            <li>Производство в Московской области</li>
             <li>Разлив, упаковка и "Честный знак"</li>
-            <li>Поставки по всей России</li>
+            <li>Работаем по всей России</li>
           </ul>
         </div>
-        <aside class="hero__media reveal" style="--delay: 120ms;">
-          <article class="media-card media-card--large">
-            <p>Производственная зона</p>
-            <span>Место для фото линии розлива</span>
-          </article>
-          <article class="media-card">
-            <p>Упаковка и маркировка</p>
-            <span>Место для фото финальной комплектации</span>
-          </article>
-          <article class="metric">
-            <strong>3 000 000</strong>
-            <span>единиц продукции в месяц</span>
-          </article>
-        </aside>
+
+        <figure class="image-block image-block--hero reveal" style="--delay: 120ms;">
+          <figcaption>hero-image / production-preview</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -140,33 +133,36 @@ app.innerHTML = `
       <div class="container split">
         <div>
           <p class="eyebrow">О компании</p>
-          <h2>BestCosmetics — производственная база для брендов, которым нужен масштаб</h2>
-          <p class="section-copy">
-            Мы выпускаем декоративную и уходовую косметику на площадке в Сергиевом Посаде.
-            Фокус компании — крупные партии, стабильный темп производства и контроль качества на каждом этапе.
+          <h2>BestCosmetics — производственный подрядчик для масштабных запусков</h2>
+          <p class="copy">
+            BestCosmetics — контрактное производство декоративной и уходовой косметики в Московской области.
+            Мы ориентированы на крупные партии, стабильный выпуск и прозрачные процессы взаимодействия.
           </p>
-          <p class="section-copy">
-            Работаем по всей РФ и строим процесс так, чтобы заказчик получал предсказуемый результат:
-            от согласования упаковки до готовой партии на отгрузку.
+          <p class="copy">
+            Производственная база в Сергиевом Посаде позволяет поддерживать темп поставок по всей России
+            и сопровождать масштабирование бренда на рынке РФ.
           </p>
         </div>
-        <div class="about__notes">
-          <article class="note-card">
-            <h3>Производственная дисциплина</h3>
-            <p>Выстроенные процессы без хаотичных ручных операций в критических точках.</p>
-          </article>
-          <article class="note-card">
-            <h3>Ориентация на объем</h3>
-            <p>Инфраструктура и команды адаптированы под серийные, а не тестовые, запуски.</p>
-          </article>
-        </div>
+
+        <article class="note">
+          <h3>Сфокусированы на B2B-проектах с большими объемами</h3>
+          <p>Работаем как системный производственный партнер: четкие этапы, понятные сроки и прогнозируемый результат.</p>
+        </article>
       </div>
     </section>
 
     <section class="section reveal" id="services">
       <div class="container">
-        <p class="eyebrow">Услуги</p>
-        <h2>Полный набор операций для контрактного производства</h2>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Услуги</p>
+            <h2>Полный набор операций для контрактного производства</h2>
+          </div>
+          <figure class="image-block image-block--wide">
+            <figcaption>services-image</figcaption>
+          </figure>
+        </div>
+
         <div class="cards">
           ${services
             .map(
@@ -184,15 +180,17 @@ app.innerHTML = `
 
     <section class="section reveal" id="formats">
       <div class="container">
-        <p class="eyebrow">Форматы и категории</p>
-        <h2>Работаем с ключевыми типами упаковки и востребованными категориями косметики</h2>
+        <p class="eyebrow">Форматы и категории продукции</p>
+        <h2>Работаем с ключевыми форматами фасовки и востребованными категориями</h2>
+
         <div class="duo">
           <article class="panel">
-            <h3>Форматы фасовки</h3>
+            <h3>Форматы</h3>
             <div class="chips">
               ${formats.map((item) => `<span class="chip">${item}</span>`).join('')}
             </div>
           </article>
+
           <article class="panel">
             <h3>Категории продукции</h3>
             <div class="chips">
@@ -200,17 +198,20 @@ app.innerHTML = `
             </div>
           </article>
         </div>
+
+        <figure class="image-block image-block--wide image-block--offset">
+          <figcaption>packaging-image</figcaption>
+        </figure>
       </div>
     </section>
 
     <section class="section reveal" id="capacity">
       <div class="container capacity">
         <p class="eyebrow">Производственные мощности</p>
-        <p class="capacity__value">До 3 000 000</p>
-        <p class="capacity__subtitle">единиц продукции в месяц</p>
+        <p class="capacity__value">До 3 000 000 единиц продукции в месяц</p>
         <p class="capacity__text">
-          Поддерживаем выпуск крупных партий для масштабного присутствия бренда на рынке РФ
-          и стабильного выполнения контрактных обязательств.
+          Производственная база BestCosmetics позволяет поддерживать стабильный выпуск крупных партий
+          для масштабного присутствия бренда на рынке РФ.
         </p>
       </div>
     </section>
@@ -218,7 +219,7 @@ app.innerHTML = `
     <section class="section reveal" id="advantages">
       <div class="container">
         <p class="eyebrow">Почему выбирают BestCosmetics</p>
-        <h2>Сильный подрядчик для системной и долгосрочной работы</h2>
+        <h2>Сильная производственная платформа для долгосрочной работы</h2>
         <div class="advantages">
           ${advantages
             .map(
@@ -237,7 +238,7 @@ app.innerHTML = `
     <section class="section reveal" id="process">
       <div class="container">
         <p class="eyebrow">Как строится работа</p>
-        <h2>Прозрачный производственный цикл от заявки до отгрузки</h2>
+        <h2>Понятная последовательность от заявки до отгрузки</h2>
         <ol class="steps">
           ${steps
             .map(
@@ -253,32 +254,24 @@ app.innerHTML = `
       </div>
     </section>
 
-    <section class="section reveal" id="trust">
-      <div class="container trust">
-        <p class="eyebrow">Доверие, качество, маркировка</p>
-        <h2>Операционная и документальная часть выстроена под требования российского рынка</h2>
-        <div class="trust__grid">
-          <article class="trust-card">
-            <h3>Требования РФ и РПН</h3>
-            <p>
-              Работаем в соответствии с требованиями законодательства РФ и требованиями Роспотребнадзора
-              в части маркировки и сопутствующих производственных процессов.
-            </p>
-          </article>
-          <article class="trust-card">
-            <h3>Контроль качества</h3>
-            <p>
-              Поддерживаем контроль ключевых этапов производства, чтобы партия соответствовала
-              согласованным стандартам и срокам.
-            </p>
-          </article>
-          <article class="trust-card">
-            <h3>Прозрачное взаимодействие</h3>
-            <p>
-              Заказчик получает понятную коммуникацию по этапам, объемам и готовности партии к отгрузке.
-            </p>
-          </article>
+    <section class="section reveal" id="control">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">Контроль, маркировка и процессы</p>
+          <h2>Системный выпуск и прозрачное взаимодействие с заказчиком</h2>
+          <p class="copy">
+            Производственные процессы выстроены под серийный выпуск крупных партий. Этапы маркировки
+            и сопутствующие операции организованы с учетом требований законодательства РФ и требований РПН.
+          </p>
+          <p class="copy">
+            Взаимодействие строится прозрачно: фиксируем задачи, сроки и параметры партии, чтобы заказчик
+            получал управляемый и предсказуемый результат.
+          </p>
         </div>
+
+        <figure class="image-block image-block--facility">
+          <figcaption>facility-image</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -286,129 +279,81 @@ app.innerHTML = `
       <div class="container contacts">
         <div>
           <p class="eyebrow">Контакты</p>
-          <h2>Обсудим задачу и подготовим запуск партии под ваш объем</h2>
-          <p class="section-copy">
-            Если вам нужен надежный производственный партнер для масштабных запусков косметики по РФ,
-            свяжитесь с нами удобным способом.
+          <h2>Обсудим ваш проект</h2>
+          <p class="copy">
+            Если вам нужен надежный производственный подрядчик для выпуска косметики крупными партиями,
+            свяжитесь с нами — обсудим задачу, формат и объемы.
           </p>
+
+          <div class="contacts__actions">
+            <a class="btn btn--primary" href="${CONTACTS.telegramHref}" target="_blank" rel="noopener noreferrer">
+              Написать в Telegram
+            </a>
+            <a class="btn btn--secondary" href="${CONTACTS.phoneHref}">Позвонить</a>
+          </div>
+
+          <div class="contacts__list">
+            <a href="${CONTACTS.phoneHref}">${CONTACTS.phoneDisplay}</a>
+            <a href="mailto:${CONTACTS.email}">${CONTACTS.email}</a>
+          </div>
         </div>
-        <div class="contacts__panel">
-          <a class="btn btn--primary btn--full" href="${CONTACTS.telegramHref}" target="_blank" rel="noopener noreferrer">
-            Написать в Telegram
-          </a>
-          <a class="btn btn--secondary btn--full" href="${CONTACTS.phoneHref}">
-            Позвонить: ${CONTACTS.phoneDisplay}
-          </a>
-          <a class="contact-link" href="mailto:${CONTACTS.email}">
-            ${CONTACTS.email}
-          </a>
-          <p class="contacts__hint">Основной канал для старта диалога: Telegram и телефон.</p>
-        </div>
+
+        <form class="form" action="#" method="post">
+          <label>
+            <span>Имя</span>
+            <input type="text" name="name" placeholder="Ваше имя" />
+          </label>
+          <label>
+            <span>Телефон / Telegram</span>
+            <input type="text" name="contact" placeholder="+7 или @username" />
+          </label>
+          <label>
+            <span>Комментарий</span>
+            <textarea name="comment" rows="4" placeholder="Кратко о задаче и планируемых объемах"></textarea>
+          </label>
+          <button class="btn btn--primary btn--full" type="submit">Отправить</button>
+        </form>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container footer__inner">
-      <div>
-        <strong>BestCosmetics</strong>
-        <p>Контрактное производство косметики: разлив, упаковка, маркировка, логистика.</p>
-      </div>
+      <a class="logo" href="#top" aria-label="best. cosmetics">
+        <span class="logo__line">best.</span>
+        <span class="logo__line">cosmetics</span>
+      </a>
+
+      <p>Контрактное производство косметики: разлив, упаковка, маркировка, логистика.</p>
+
       <div class="footer__contacts">
         <a href="${CONTACTS.telegramHref}" target="_blank" rel="noopener noreferrer">${CONTACTS.telegramDisplay}</a>
         <a href="${CONTACTS.phoneHref}">${CONTACTS.phoneDisplay}</a>
         <a href="mailto:${CONTACTS.email}">${CONTACTS.email}</a>
       </div>
+
       <small>© <span id="year"></span> BestCosmetics. Все права защищены.</small>
     </div>
   </footer>
 `;
 
-function initCursorLight(): void {
-  const cursorLight = document.querySelector<HTMLElement>('.cursor-light');
-  if (!cursorLight) {
-    return;
-  }
-
-  const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!supportsFinePointer || reducedMotion) {
-    cursorLight.remove();
-    return;
-  }
-
-  const target = {
-    x: window.innerWidth * 0.5,
-    y: window.innerHeight * 0.35,
-    opacity: 0
-  };
-
-  const current = {
-    x: target.x,
-    y: target.y,
-    opacity: 0
-  };
-
-  let rafId = 0;
-
-  const tick = (): void => {
-    current.x += (target.x - current.x) * 0.085;
-    current.y += (target.y - current.y) * 0.085;
-    current.opacity += (target.opacity - current.opacity) * 0.075;
-
-    cursorLight.style.transform = `translate3d(${current.x}px, ${current.y}px, 0)`;
-    cursorLight.style.opacity = current.opacity.toFixed(3);
-
-    rafId = window.requestAnimationFrame(tick);
-  };
-
-  const onPointerMove = (event: PointerEvent): void => {
-    target.x = event.clientX;
-    target.y = event.clientY;
-    target.opacity = 1;
-  };
-
-  const onPointerEnter = (): void => {
-    target.opacity = 1;
-  };
-
-  const onPointerLeave = (): void => {
-    target.opacity = 0;
-  };
-
-  const onWindowBlur = (): void => {
-    target.opacity = 0;
-  };
-
-  window.addEventListener('pointermove', onPointerMove, { passive: true });
-  window.addEventListener('pointerenter', onPointerEnter, { passive: true });
-  window.addEventListener('pointerleave', onPointerLeave, { passive: true });
-  window.addEventListener('blur', onWindowBlur, { passive: true });
-
-  rafId = window.requestAnimationFrame(tick);
-
-  window.addEventListener('beforeunload', () => {
-    window.cancelAnimationFrame(rafId);
-    window.removeEventListener('pointermove', onPointerMove);
-    window.removeEventListener('pointerenter', onPointerEnter);
-    window.removeEventListener('pointerleave', onPointerLeave);
-    window.removeEventListener('blur', onWindowBlur);
+const form = document.querySelector<HTMLFormElement>('.form');
+if (form) {
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
   });
 }
-
-initCursorLight();
 
 const year = document.querySelector<HTMLSpanElement>('#year');
 if (year) {
   year.textContent = String(new Date().getFullYear());
 }
 
-const topbar = document.querySelector<HTMLElement>('.topbar');
+const header = document.querySelector<HTMLElement>('.header');
 window.addEventListener(
   'scroll',
   () => {
-    topbar?.classList.toggle('is-scrolled', window.scrollY > 8);
+    header?.classList.toggle('is-scrolled', window.scrollY > 6);
   },
   { passive: true }
 );
@@ -433,3 +378,78 @@ if ('IntersectionObserver' in window) {
 } else {
   revealElements.forEach((element) => element.classList.add('is-visible'));
 }
+
+function initCursorGlow(): void {
+  const glow = document.querySelector<HTMLElement>('.cursor-glow');
+  if (!glow) {
+    return;
+  }
+
+  const isDesktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!isDesktopPointer || reducedMotion) {
+    glow.remove();
+    return;
+  }
+
+  const target = {
+    x: window.innerWidth * 0.5,
+    y: window.innerHeight * 0.35,
+    opacity: 0
+  };
+
+  const current = {
+    x: target.x,
+    y: target.y,
+    opacity: 0
+  };
+
+  let rafId = 0;
+
+  const tick = (): void => {
+    current.x += (target.x - current.x) * 0.09;
+    current.y += (target.y - current.y) * 0.09;
+    current.opacity += (target.opacity - current.opacity) * 0.08;
+
+    glow.style.transform = `translate3d(${current.x}px, ${current.y}px, 0)`;
+    glow.style.opacity = current.opacity.toFixed(3);
+
+    rafId = window.requestAnimationFrame(tick);
+  };
+
+  const onPointerMove = (event: PointerEvent): void => {
+    target.x = event.clientX;
+    target.y = event.clientY;
+    target.opacity = 0.9;
+  };
+
+  const onPointerEnter = (): void => {
+    target.opacity = 0.9;
+  };
+
+  const onPointerLeave = (): void => {
+    target.opacity = 0;
+  };
+
+  const onBlur = (): void => {
+    target.opacity = 0;
+  };
+
+  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('pointerenter', onPointerEnter, { passive: true });
+  window.addEventListener('pointerleave', onPointerLeave, { passive: true });
+  window.addEventListener('blur', onBlur, { passive: true });
+
+  rafId = window.requestAnimationFrame(tick);
+
+  window.addEventListener('beforeunload', () => {
+    window.cancelAnimationFrame(rafId);
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('pointerenter', onPointerEnter);
+    window.removeEventListener('pointerleave', onPointerLeave);
+    window.removeEventListener('blur', onBlur);
+  });
+}
+
+initCursorGlow();
