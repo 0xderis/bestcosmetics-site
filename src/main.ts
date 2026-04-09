@@ -74,6 +74,7 @@ const steps = [
 
 app.innerHTML = `
   <div class="bg-layer" aria-hidden="true"></div>
+  <canvas class="starfield" aria-hidden="true"></canvas>
   <div class="cursor-glow" aria-hidden="true">
     <span class="cursor-glow__core"></span>
     <span class="cursor-glow__halo"></span>
@@ -378,6 +379,184 @@ if ('IntersectionObserver' in window) {
 } else {
   revealElements.forEach((element) => element.classList.add('is-visible'));
 }
+
+function initStarfield(): void {
+  const canvas = document.querySelector<HTMLCanvasElement>('.starfield');
+  if (!canvas) {
+    return;
+  }
+
+  const isDesktopPointer = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!isDesktopPointer || reducedMotion) {
+    canvas.remove();
+    return;
+  }
+
+  const ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) {
+    canvas.remove();
+    return;
+  }
+
+  interface Star {
+    nx: number;
+    ny: number;
+    size: number;
+    alpha: number;
+    twinkleSpeed: number;
+    twinklePhase: number;
+    driftSpeedX: number;
+    driftSpeedY: number;
+    depth: number;
+    offsetX: number;
+    offsetY: number;
+  }
+
+  let stars: Star[] = [];
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  let dpr = 1;
+  let rafId = 0;
+  let lastFrame = performance.now();
+  let elapsed = 0;
+  let isHidden = document.hidden;
+
+  const pointer = {
+    x: width * 0.5,
+    y: height * 0.5,
+    active: false
+  };
+
+  const setCanvasSize = (): void => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const createStars = (): void => {
+    const area = width * height;
+    const count = Math.max(40, Math.min(80, Math.round(area / 26000)));
+
+    stars = Array.from({ length: count }, () => ({
+      nx: Math.random(),
+      ny: Math.random(),
+      size: 1 + Math.random() * 1.5,
+      alpha: 0.12 + Math.random() * 0.2,
+      twinkleSpeed: 0.12 + Math.random() * 0.28,
+      twinklePhase: Math.random() * Math.PI * 2,
+      driftSpeedX: (Math.random() - 0.5) * 0.04,
+      driftSpeedY: (Math.random() - 0.5) * 0.04,
+      depth: 0.35 + Math.random() * 0.85,
+      offsetX: 0,
+      offsetY: 0
+    }));
+  };
+
+  const onPointerMove = (event: PointerEvent): void => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+    pointer.active = true;
+  };
+
+  const onPointerLeave = (): void => {
+    pointer.active = false;
+  };
+
+  const onVisibilityChange = (): void => {
+    isHidden = document.hidden;
+  };
+
+  const onResize = (): void => {
+    setCanvasSize();
+    createStars();
+  };
+
+  const animate = (now: number): void => {
+    const delta = Math.min((now - lastFrame) / 1000, 0.05);
+    lastFrame = now;
+    elapsed += delta;
+
+    if (!isHidden) {
+      ctx.clearRect(0, 0, width, height);
+
+      const radius = 260;
+      const maxShift = 5;
+
+      for (const star of stars) {
+        const baseX = star.nx * width + Math.sin(elapsed * star.driftSpeedX + star.twinklePhase) * 2.1;
+        const baseY = star.ny * height + Math.cos(elapsed * star.driftSpeedY + star.twinklePhase * 0.85) * 2.1;
+
+        let targetOffsetX = 0;
+        let targetOffsetY = 0;
+        let cursorBoost = 0;
+
+        if (pointer.active) {
+          const dx = baseX - pointer.x;
+          const dy = baseY - pointer.y;
+          const distance = Math.hypot(dx, dy);
+
+          if (distance < radius) {
+            const force = Math.pow(1 - distance / radius, 2);
+            const displacement = force * maxShift * star.depth;
+            const nx = distance > 0 ? dx / distance : 0;
+            const ny = distance > 0 ? dy / distance : 0;
+
+            targetOffsetX = nx * displacement;
+            targetOffsetY = ny * displacement;
+            cursorBoost = force * 0.08;
+          }
+        }
+
+        star.offsetX += (targetOffsetX - star.offsetX) * 0.08;
+        star.offsetY += (targetOffsetY - star.offsetY) * 0.08;
+
+        const twinkle = 0.85 + Math.sin(elapsed * star.twinkleSpeed + star.twinklePhase) * 0.15;
+        const alpha = Math.min(0.35, star.alpha * twinkle + cursorBoost);
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(240, 242, 245, ${alpha.toFixed(3)})`;
+        ctx.arc(baseX + star.offsetX, baseY + star.offsetY, star.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    rafId = window.requestAnimationFrame(animate);
+  };
+
+  setCanvasSize();
+  createStars();
+
+  window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('pointerleave', onPointerLeave, { passive: true });
+  window.addEventListener('blur', onPointerLeave, { passive: true });
+  document.addEventListener('visibilitychange', onVisibilityChange, { passive: true });
+
+  rafId = window.requestAnimationFrame((time) => {
+    lastFrame = time;
+    animate(time);
+  });
+
+  window.addEventListener('beforeunload', () => {
+    window.cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', onResize);
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('pointerleave', onPointerLeave);
+    window.removeEventListener('blur', onPointerLeave);
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+  });
+}
+
+initStarfield();
 
 function initCursorGlow(): void {
   const glow = document.querySelector<HTMLElement>('.cursor-glow');
