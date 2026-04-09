@@ -74,6 +74,10 @@ const steps = [
 
 app.innerHTML = `
   <div class="page-glow"></div>
+  <div class="cursor-light" aria-hidden="true">
+    <span class="cursor-light__core"></span>
+    <span class="cursor-light__halo"></span>
+  </div>
   <header class="topbar">
     <div class="container topbar__inner">
       <a class="brand" href="#top" aria-label="BestCosmetics">
@@ -319,6 +323,81 @@ app.innerHTML = `
     </div>
   </footer>
 `;
+
+function initCursorLight(): void {
+  const cursorLight = document.querySelector<HTMLElement>('.cursor-light');
+  if (!cursorLight) {
+    return;
+  }
+
+  const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!supportsFinePointer || reducedMotion) {
+    cursorLight.remove();
+    return;
+  }
+
+  const target = {
+    x: window.innerWidth * 0.5,
+    y: window.innerHeight * 0.35,
+    opacity: 0
+  };
+
+  const current = {
+    x: target.x,
+    y: target.y,
+    opacity: 0
+  };
+
+  let rafId = 0;
+
+  const tick = (): void => {
+    current.x += (target.x - current.x) * 0.085;
+    current.y += (target.y - current.y) * 0.085;
+    current.opacity += (target.opacity - current.opacity) * 0.075;
+
+    cursorLight.style.transform = `translate3d(${current.x}px, ${current.y}px, 0)`;
+    cursorLight.style.opacity = current.opacity.toFixed(3);
+
+    rafId = window.requestAnimationFrame(tick);
+  };
+
+  const onPointerMove = (event: PointerEvent): void => {
+    target.x = event.clientX;
+    target.y = event.clientY;
+    target.opacity = 1;
+  };
+
+  const onPointerEnter = (): void => {
+    target.opacity = 1;
+  };
+
+  const onPointerLeave = (): void => {
+    target.opacity = 0;
+  };
+
+  const onWindowBlur = (): void => {
+    target.opacity = 0;
+  };
+
+  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('pointerenter', onPointerEnter, { passive: true });
+  window.addEventListener('pointerleave', onPointerLeave, { passive: true });
+  window.addEventListener('blur', onWindowBlur, { passive: true });
+
+  rafId = window.requestAnimationFrame(tick);
+
+  window.addEventListener('beforeunload', () => {
+    window.cancelAnimationFrame(rafId);
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('pointerenter', onPointerEnter);
+    window.removeEventListener('pointerleave', onPointerLeave);
+    window.removeEventListener('blur', onWindowBlur);
+  });
+}
+
+initCursorLight();
 
 const year = document.querySelector<HTMLSpanElement>('#year');
 if (year) {

@@ -63,10 +63,51 @@ a {
   position: fixed;
   inset: -18vh -20vw auto;
   height: 36vh;
-  z-index: -1;
+  z-index: -3;
   pointer-events: none;
   background: radial-gradient(48% 82% at 50% 0%, rgba(235, 235, 235, 0.12), transparent 72%);
   filter: blur(10px);
+}
+
+.cursor-light {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.cursor-light__core,
+.cursor-light__halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cursor-light__core {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.125) 0%,
+    rgba(243, 245, 248, 0.068) 34%,
+    rgba(255, 255, 255, 0) 72%
+  );
+  filter: blur(5px);
+}
+
+.cursor-light__halo {
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 76%);
+  filter: blur(11px);
 }
 
 .container {
@@ -709,6 +750,12 @@ h3 {
   }
 }
 
+@media (hover: none), (pointer: coarse) {
+  .cursor-light {
+    display: none;
+  }
+}
+
 @media (max-width: 720px) {
   .container {
     width: min(1180px, calc(100% - 30px));
@@ -749,6 +796,10 @@ h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .cursor-light {
+    display: none;
+  }
+
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
